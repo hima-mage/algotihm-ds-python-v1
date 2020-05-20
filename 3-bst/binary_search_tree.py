@@ -2,10 +2,8 @@ class Node(object):
     def __init__(self, data):
         self.data = data
         self.leftChild = None
-        self.rightChild = None
-      
-
-
+        self.rightChild = None 
+        
 class BinarySearchTree(object):
     def __init__(self):
         self.root = None
@@ -13,6 +11,10 @@ class BinarySearchTree(object):
     def insert(self, data): 
         if not self.root : 
             self.root = Node(data)
+        else:
+            self.insertNode(data, self.root)
+
+
     # O(logn) - if the tree is balanced -> can be reduce to O(N)
     def insertNode(self, data, node): 
         if data < node.data:   # leftChild
@@ -33,6 +35,7 @@ class BinarySearchTree(object):
     def getMin(self , node): 
         if node.leftChild: 
             return self.getMin(node.leftChild)
+
         return node.data
 
     def getMaxValue(self) : 
@@ -42,6 +45,7 @@ class BinarySearchTree(object):
     def getMax(self , node): 
         if node.rightChild: 
             return self.getMax(node.rightChild)
+
         return node.data
 
     def traverse(self):
@@ -51,7 +55,7 @@ class BinarySearchTree(object):
     def traverseInOrder(self, node): 
         if node.leftChild: 
             self.traverseInOrder(node.leftChild)
-            
+
         print("%s" %node.data)
     
         if node.rightChild: 
@@ -59,9 +63,14 @@ class BinarySearchTree(object):
       
 
 
-
-
-
+bst = BinarySearchTree()
+bst.insert(10)
+bst.insert(5)
+bst.insert(15)
+bst.insert(6)
+print(bst)
+print(bst.getMinValue())
+print(bst.getMaxValue())
 
 
 
