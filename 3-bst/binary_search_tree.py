@@ -30,6 +30,7 @@ class BinarySearchTree(object):
     def remove(self, data): 
         if self.root: 
             self.root = self.removeNode(data , self.root)
+
     def removeNode(self , data , node): 
         if not node :
             return node
@@ -56,16 +57,16 @@ class BinarySearchTree(object):
                 return tempNode
 
             print('Removing node with two childern ')
-            tempNode = self.getProdeccor(node.leftChild)
+            tempNode = self.getPredeccor(node.leftChild)
             node.data = tempNode.data
-            data.leftChild = self.removeNode(tempNode.data, node.leftChild)
+            node.leftChild = self.removeNode(tempNode.data, node.leftChild)
 
         return node
 
 
-    def getProdeccor(self , node): 
+    def getPredeccor(self , node): 
         if node.rightChild: 
-            return self.getProdeccor(node.rightChild)
+            return self.getPredeccor(node.rightChild)
 
         return node
 
@@ -109,7 +110,7 @@ bst.insert(10)
 bst.insert(13)
 bst.insert(5)
 bst.insert(14)
-bst.remove(13)
+bst.remove(10)
  
 bst.traverse()
 
