@@ -3,7 +3,7 @@ class Node(object):
         self.data = data
         self.leftChild = None
         self.rightChild = None 
-        
+
 class BinarySearchTree(object):
     def __init__(self):
         self.root = None
@@ -13,11 +13,10 @@ class BinarySearchTree(object):
             self.root = Node(data)
         else:
             self.insertNode(data, self.root)
-
-
+ 
     # O(logn) - if the tree is balanced -> can be reduce to O(N)
     def insertNode(self, data, node): 
-        if data < node.data:   # leftChild
+        if data < node.data:   # leftChild 
             if node.leftChild: 
                 self.insertNode(data, node.leftChild) # recursive
             else :
@@ -27,6 +26,48 @@ class BinarySearchTree(object):
                 self.insertNode(data, node.rightChild) # recursive
             else: 
                 node.rightChild = Node(data) # insert it into  righnode
+
+    def remove(self, data): 
+        if self.root: 
+            self.root = self.removeNode(data , self.root)
+    def removeNode(self , data , node): 
+        if not node :
+            return node
+        
+        if data < node.data: 
+            node.leftChild = self.removeNode(data , node.leftChild)
+        elif data > node.data: 
+            node.righnode = self.removeNode(data , node.rightChild)
+        else : 
+            if not node.leftChild and not node.rightChild : 
+                print("removing a leaf node ...")
+                del node
+                return None
+
+            if not node.leftChild: 
+                print("removing the node with single right child")
+                tempNode = node.rightChild
+                del node; 
+                return tempNode
+            elif not node.rightChild: 
+                print("Removing node with single left child")
+                tempNode = node.leftChild 
+                del node
+                return tempNode
+
+            print('Removing node with two childern ')
+            tempNode = self.getProdeccor(node.leftChild)
+            node.data = tempNode.data
+            data.leftChild = self.removeNode(tempNode.data, node.leftChild)
+
+        return node
+
+
+    def getProdeccor(self , node): 
+        if node.rightChild: 
+            return self.getProdeccor(node.rightChild)
+
+        return node
 
     def getMinValue(self) : 
         if self.root: 
@@ -65,13 +106,12 @@ class BinarySearchTree(object):
 
 bst = BinarySearchTree()
 bst.insert(10)
+bst.insert(13)
 bst.insert(5)
-bst.insert(15)
-bst.insert(6)
-print(bst)
-print(bst.getMinValue())
-print(bst.getMaxValue())
-
+bst.insert(14)
+bst.remove(13)
+ 
+bst.traverse()
 
 
 
